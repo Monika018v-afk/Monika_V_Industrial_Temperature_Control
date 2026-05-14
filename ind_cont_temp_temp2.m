@@ -2,20 +2,7 @@ clc;
 clear;
 close all;
 
-%% =====================================================
-% ADVANCED INDUSTRIAL TEMPERATURE CONTROL SYSTEM
-% =====================================================
-% Plant Transfer Function:
-% G(s) = 2 / (10s + 1)
-%
-% Objective:
-% 1. Zero steady-state error
-% 2. Overshoot < 5%
-% 3. Stable response
-% 4. Disturbance rejection
-% =====================================================
 
-%% Define Transfer Function
 s = tf('s');
 
 G = 2/(10*s + 1);
@@ -23,25 +10,15 @@ G = 2/(10*s + 1);
 disp('Plant Transfer Function:')
 G
 
-%% =====================================================
-% PID CONTROLLER DESIGN
-% =====================================================
 
-% Automatic PID tuning
 C = pidtune(G,'PID');
 
 disp('PID Controller:')
 C
 
-%% =====================================================
-% CLOSED LOOP SYSTEM
-% =====================================================
 
 T = feedback(C*G,1);
 
-%% =====================================================
-% STEP RESPONSE
-% =====================================================
 
 t = 0:0.01:80;
 
@@ -57,9 +34,7 @@ ylabel('Temperature');
 h = findobj(gca,'Type','line');
 set(h,'LineWidth',2);
 
-%% =====================================================
-% STEP RESPONSE CHARACTERISTICS
-% =====================================================
+
 
 info = stepinfo(T);
 
@@ -77,10 +52,7 @@ steady_state_error = abs(1 - dcgain(T));
 
 fprintf('Steady State Error : %.6f\n',steady_state_error);
 
-%% =====================================================
-% DISTURBANCE REJECTION
-% =====================================================
-% Heat loss disturbance at t = 15 sec
+c
 
 t = 0:0.01:80;
 
@@ -103,9 +75,7 @@ ylabel('Temperature Change');
 
 legend('System Response');
 
-%% =====================================================
-% ROOT LOCUS
-% =====================================================
+
 
 figure;
 rlocus(C*G);
@@ -114,9 +84,7 @@ grid on;
 
 title('Root Locus');
 
-%% =====================================================
-% BODE PLOT
-% =====================================================
+
 
 figure;
 bode(C*G);
@@ -125,9 +93,6 @@ grid on;
 
 title('Bode Plot');
 
-%% =====================================================
-% GAIN MARGIN AND PHASE MARGIN
-% =====================================================
 
 figure;
 margin(C*G);
@@ -136,9 +101,6 @@ grid on;
 
 title('Gain Margin and Phase Margin');
 
-%% =====================================================
-% POLE ZERO MAP
-% =====================================================
 
 figure;
 pzmap(T);
@@ -147,9 +109,6 @@ grid on;
 
 title('Pole Zero Map');
 
-%% =====================================================
-% NYQUIST PLOT
-% =====================================================
 
 figure;
 nyquist(C*G);
@@ -158,9 +117,6 @@ grid on;
 
 title('Nyquist Plot');
 
-%% =====================================================
-% OPEN LOOP VS CLOSED LOOP
-% =====================================================
 
 figure;
 
@@ -175,9 +131,6 @@ legend('Open Loop','Closed Loop');
 h = findobj(gca,'Type','line');
 set(h,'LineWidth',2);
 
-%% =====================================================
-% CONTROL EFFORT
-% =====================================================
 
 U = feedback(C,G);
 
@@ -194,9 +147,7 @@ ylabel('Control Signal');
 h = findobj(gca,'Type','line');
 set(h,'LineWidth',2);
 
-%% =====================================================
-% SYSTEM STABILITY CHECK
-% =====================================================
+
 
 disp(' ')
 disp('===================================')
@@ -223,6 +174,3 @@ end
 
 disp('===================================')
 
-%% =====================================================
-% END OF PROGRAM
-% =====================================================
